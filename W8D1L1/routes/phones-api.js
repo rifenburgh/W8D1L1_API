@@ -1,4 +1,5 @@
 const express           = require('express');
+const mongoose          = require('mongoose');
 const router            = express.Router();
 const bodyParser        = require('body-parser');
 const Phones            = require('../models/phone-model');
@@ -45,7 +46,7 @@ router.get('/phones/:id', (req, res, next) => {
     res.status(400).json({ message: 'Specified ID is NOT valid.' });
     return;
   }
-  //Search for individudal phone by ID in the URL (API request) 
+  //Search for individudal phone by ID in the URL (API request)
   Phones.findById(req.params.id, (err, thePhone) => {
     if (err) {
       res.json(err);
