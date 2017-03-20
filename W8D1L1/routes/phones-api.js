@@ -41,7 +41,7 @@ router.post('/phones', (req, res, next) => {
 });
 
 router.get('/phones/:id', (req, res, next) => {
-  //check to see if ID is a valid mongoose identified
+  //Check to see if ID is a valid mongoose identified
   if(!mongoose.Types.ObjectId.isValid(req.params.id)) {
     res.status(400).json({ message: 'Specified ID is NOT valid.' });
     return;
@@ -57,11 +57,41 @@ router.get('/phones/:id', (req, res, next) => {
   });
 });
 
-router.post('/phones/:id', (req, res, next) => {
-
+//UPDATE Phone in API
+router.put('/phones/:id', (req, res, next) => {
+  //Check to see if ID is a valid mongoose identified
+  if(!mongoose.Types.ObjectId.isValid(req.params.id)) {
+    res.status(400).json({ message: 'Specified ID is NOT valid.' });
+    return;
+  }
+  const updates         = {
+    brand:              req.body.brand,
+    name:               req.body.name,
+    specs:              req.body.specs,
+    image:              req.body.image
+  };
+  Phones.findByIdAndUpdate(req.params.id, updates, (err) => {
+    if (err) {
+      res.json(err);
+      return;
+    }
+    res.json({ message: 'Phone Updated Successfully.' });
+  });
 });
-router.delete('/phones/:id', (req, res, next) => {
 
+router.delete('/phones/:id', (req, res, next) => {
+  //Check to see if ID is a valid mongoose identified
+  if(!mongoose.Types.ObjectId.isValid(req.params.id)) {
+    res.status(400).json({ message: 'Specified ID is NOT valid.' });
+    return;
+  }
+  Phones.remove({ _id: req.params.id}, (err) => {
+    if (err) {
+      res.json(err);
+      return;
+    }
+    res.json({ message: 'Phone has been removed.' });
+  });
 });
 //Needed to export route details to APP.js
 module.exports          = router;
