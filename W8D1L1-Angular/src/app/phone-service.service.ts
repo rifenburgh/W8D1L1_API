@@ -4,6 +4,9 @@ import { Http } from '@angular/http';
 // import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/toPromise';
 
+
+//Errors are usually tested for in component, not the service (this file) that requests it
+
 @Injectable()
 export class PhoneServiceService {
   BASE_URL: string = 'http://localhost:3000';
@@ -19,6 +22,5 @@ export class PhoneServiceService {
     return this.myHttp.get(`${this.BASE_URL}/api/phones/${id}`)
       .toPromise()
       .then(apiResponse => apiResponse.json())
-
   }
 }

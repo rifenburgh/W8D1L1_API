@@ -1,3 +1,9 @@
-<p>
-  phone-details works!
-</p>
+<h2>Details Page</h2>
+
+<div *ngIf="phone">
+  <div class="phoneLeft">
+    <img [src]="phone.image">
+    <p>{{ phone.name }} by {{ phone.brand }} </p>
+    <button (click)="deletePhone()">Delete</button>
+  </div>
+</div>

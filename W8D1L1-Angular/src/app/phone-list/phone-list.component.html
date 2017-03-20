@@ -1,3 +1,10 @@
-<p>
-  phone-list works!
-</p>
+<h2>Phone List</h2>
+
+<div *ngIf="errorMessage"> {{ errorMessage }} </div>
+<div>
+  <div class="phoneLeft" *ngFor="let item of phones">
+    <img [src]="item.image" width="100">
+    <figcaption> {{ item.name }} by {{ item.brand }}</figcaption>
+    <a [routerLink]="['phone', item._id]">View Details</a>
+  </div>
+</div>
