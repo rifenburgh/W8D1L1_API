@@ -7,6 +7,8 @@ const bodyParser        = require('body-parser');
 const layouts           = require('express-ejs-layouts');
 const mongoose          = require('mongoose');
 const dotenv            = require('dotenv');
+//Allows other domains to access this API.
+const cors              = require('cors');
 
 
 dotenv.config();
@@ -29,6 +31,9 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(layouts);
+//Turn on CORS to allow API to be accessed from other domains
+//Used for Express (port 3000) and Angular apps (port 4200) to be accessed at the same time
+app.use(cors());
 
 const index             = require('./routes/index');
 app.use('/', index);
