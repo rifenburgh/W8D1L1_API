@@ -35,11 +35,18 @@ app.use(layouts);
 //Used for Express (port 3000) and Angular apps (port 4200) to be accessed at the same time
 app.use(cors());
 
-const index             = require('./routes/index');
-app.use('/', index);
+// const index             = require('./routes/index');
+// app.use('/', index);
 
 const phonesApi         = require('./routes/phones-api');
 app.use('/api', phonesApi);
+
+//defer to Angular application that is stored in the Public folder
+//This will replace the '/' default route listed above
+app.use(function (req, res) {
+  res.sendfile(__dirname + '/public/index.html');
+});
+
 
 // catch 404 and forward to error handler
 app.use((req, res, next) => {
